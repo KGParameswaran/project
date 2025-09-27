@@ -96,6 +96,50 @@ div.stButton > button:hover {
 """
 st.markdown(custom_widgets, unsafe_allow_html=True)
 
+# =======================
+# Input Styling for All Fields
+# =======================
+all_inputs_style = """
+<style>
+/* Life Expectancy */
+div[data-baseweb="input"] input[aria-label="Life Expectancy (years)"] {
+    background-color: white !important;
+    color: black !important;
+    border-radius: 6px !important;
+    border: 1px solid #ccc !important;
+    padding: 6px !important;
+}
+
+/* Expected Years of Schooling */
+div[data-baseweb="input"] input[aria-label="Expected Years of Schooling"] {
+    background-color: white !important;
+    color: black !important;
+    border-radius: 6px !important;
+    border: 1px solid #ccc !important;
+    padding: 6px !important;
+}
+
+/* Mean Years of Schooling */
+div[data-baseweb="input"] input[aria-label="Mean Years of Schooling"] {
+    background-color: white !important;
+    color: black !important;
+    border-radius: 6px !important;
+    border: 1px solid #ccc !important;
+    padding: 6px !important;
+}
+
+/* Gross National Income */
+div[data-baseweb="input"] input[aria-label="Gross National Income per capita (USD)"] {
+    background-color: white !important;
+    color: black !important;
+    border-radius: 6px !important;
+    border: 1px solid #ccc !important;
+    padding: 6px !important;
+}
+</style>
+"""
+st.markdown(all_inputs_style, unsafe_allow_html=True)
+
 
 # =======================
 # GNI Input Styling
@@ -113,6 +157,28 @@ div[data-baseweb="input"] input[aria-label="Gross National Income per capita (US
 """
 st.markdown(gni_style, unsafe_allow_html=True)
 
+# =======================
+# Title & Text Styling
+# =======================
+title_text_style = """
+<style>
+/* Title */
+h1 {
+    color: black !important;
+}
+
+/* Subheaders */
+h2, h3 {
+    color: black !important;
+}
+
+/* Paragraph text */
+.stMarkdown, p, span, div {
+    color: black !important;
+}
+</style>
+"""
+st.markdown(title_text_style, unsafe_allow_html=True)
 
 # =======================
 # Main Title & Description
@@ -122,13 +188,13 @@ st.markdown("""
 This tool predicts a country’s **HDI Class** (Low, Medium, High, Very High)  
 and its **HDI Score** based on key socioeconomic indicators.  
 
-👉 Use the sidebar to input values and click **Predict**.
+👈 Use the sidebar to input values and click **Predict**.
 """)
 
 # =======================
 # What is HDI?
 # =======================
-with st.expander("ℹ️ What is the Human Development Index (HDI)?", expanded=True):
+with st.expander("ℹ️ What is the Human Development Index (HDI)?", expanded=False):
     st.write("""
     The **Human Development Index (HDI)** is a summary measure of human development
     published by the **United Nations Development Programme (UNDP)**.  
@@ -145,34 +211,43 @@ with st.expander("ℹ️ What is the Human Development Index (HDI)?", expanded=T
     - **Very High Human Development** (above 0.80)  
     """)
 
-
-# =======================
 # Sidebar Inputs
-# =======================
-st.sidebar.header("🔧 Input Features")
+st.sidebar.header("🛠️ Input Features")
 
-life_expectancy = st.sidebar.slider(
+# Life Expectancy
+life_expectancy = st.sidebar.number_input(
     "Life Expectancy (years)", 
-    min_value=0.0, max_value=100.0, value=70.0, step=0.1,
-    help="Average number of years a person is expected to live"
+    min_value=0.0, 
+    max_value=100.0, 
+    value=70.0, 
+    step=0.1
 )
 
-expected_schooling = st.sidebar.slider(
+# Expected Years of Schooling
+expected_schooling = st.sidebar.number_input(
     "Expected Years of Schooling", 
-    min_value=0.0, max_value=25.0, value=12.0, step=0.1,
-    help="Years a child entering school is expected to study"
+    min_value=0.0, 
+    max_value=25.0, 
+    value=12.0, 
+    step=0.1
 )
 
-mean_schooling = st.sidebar.slider(
+# Mean Years of Schooling
+mean_schooling = st.sidebar.number_input(
     "Mean Years of Schooling", 
-    min_value=0.0, max_value=20.0, value=8.0, step=0.1,
-    help="Average completed years of education in the population"
+    min_value=0.0, 
+    max_value=25.0, 
+    value=8.0, 
+    step=0.1
 )
 
+# Gross National Income per capita
 gni = st.sidebar.number_input(
     "Gross National Income per capita (USD)", 
-    min_value=0, max_value=100000, value=10000, step=500,
-    help="GNI per capita in 2017 PPP USD"
+    min_value=0.0, 
+    max_value=100000.0, 
+    value=10000.0, 
+    step=100.0
 )
 
 # =======================
@@ -207,12 +282,9 @@ if st.sidebar.button("🚀 Predict HDI"):
 
     with col2:
         st.info(f"**HDI Score:** {predicted_hdi_score[0]:.4f}")
-
-else:
-    st.warning("👈 Adjust the inputs in the sidebar and click **Predict HDI**.")
-
+        
 # =======================
 # Footer
 # =======================
 st.markdown("---")
-st.caption("🔎 HDI: Human Development Index | Model predictions are for **educational/demo use only**.")
+st.caption("🔎 HDI: Human Development Index | Model predictions are for **educational purpose**.")
