@@ -24,12 +24,11 @@ Input Features used for prediction:
 
 ## Dashboard (Streamlit App)
 The interactive Streamlit app allows users to:
-- Input values for socio-economic indicators via sliders and input boxes.  
+- Input values for socio-economic indicators.  
 - Predict **HDI Class** and **HDI Score** in real time.  
-- View explanations of **what HDI is**.  
-- Experience a visually styled interface with gradient backgrounds.  
+- View explanations of **What HDI is**.  
 
-👉 App can be deployed on **Streamlit Community Cloud** for online access.  
+👉 The app is deployed on **Streamlit Community Cloud** for online access.  
 
 ---
 
